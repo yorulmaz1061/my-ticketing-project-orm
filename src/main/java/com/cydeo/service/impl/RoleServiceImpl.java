@@ -1,37 +1,43 @@
 package com.cydeo.service.impl;
 
 import com.cydeo.dto.RoleDTO;
+import com.cydeo.entity.Role;
+import com.cydeo.mapper.RoleMapper;
+import com.cydeo.repository.RoleRepository;
 import com.cydeo.service.RoleService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-public class RoleServiceImpl extends AbstractMapService<RoleDTO, Long> implements RoleService {
+public class RoleServiceImpl implements RoleService {
+    //How I can call any method from roleRepository?
+    private final RoleRepository roleRepository;
+    private final RoleMapper roleMapper;
 
-    @Override
-    public RoleDTO save(RoleDTO object) {
-        return super.save(object.getId(), object);
+    public RoleServiceImpl(RoleRepository roleRepository, RoleMapper roleMapper) {
+        this.roleRepository = roleRepository;
+        this.roleMapper = roleMapper;
     }
 
     @Override
-    public List<RoleDTO> findAll() {
-        return super.findAll();
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        super.deleteById(id);
-    }
-
-    @Override
-    public void update(RoleDTO object) {
-        super.update(object.getId(), object);
+    public List<RoleDTO> listAllRoles() {
+        //controller is calling me and requesting all roles
+        //So I need to go to dataBase and bring all roles from there
+        //List<Role> roleList= roleRepository.findAll();
+        // we require a mechanism to convert entity to dto called MAPPERS
+        //convert entity to dto-Mapper - get roles from db and convert each role to roledto
+        // if you have a list how you can do sometihng in each item one by one?stream map method
+        //roleList.stream().map(p->roleMapper.convertToDTO(p));
+        // if your lambda expression directly call instance method you may use double colon op. as well
+        //List<RoleDTO> list2= roleList.stream().map(roleMapper::convertToDTO).collect(Collectors.toList());
+        //return list2;
+        return roleRepository.findAll().stream().map(roleMapper::convertToDTO).collect(Collectors.toList());
     }
 
     @Override
     public RoleDTO findById(Long id) {
-        return super.findById(id);
+        return null;
     }
-
 }
