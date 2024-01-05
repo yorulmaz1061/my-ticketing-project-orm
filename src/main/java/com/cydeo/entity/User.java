@@ -4,13 +4,16 @@ import com.cydeo.enums.Gender;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLRestriction;
+import org.hibernate.annotations.Where;
 
-import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Data
 @Entity
 @Table(name = "users")
+//@SQLRestriction("is_deleted=false")
+@Where(clause = "is_deleted=false")
 public class User extends BaseEntity {
 
     private String firstName;
