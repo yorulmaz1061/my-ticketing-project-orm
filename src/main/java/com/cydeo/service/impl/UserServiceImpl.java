@@ -76,4 +76,13 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
 
     }
+
+    @Override
+    public List<UserDTO> listALlByRole(String role) {
+        //Bring all roles based on parameters from db and return dto and give it ui
+        List<User> users = userRepository.findAllByRoleDescriptionIgnoreCase(role);
+
+
+        return users.stream().map(userMapper::convertToDTO).collect(Collectors.toList());
+    }
 }
