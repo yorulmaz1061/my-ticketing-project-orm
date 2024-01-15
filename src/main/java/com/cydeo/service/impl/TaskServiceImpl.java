@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,6 +25,10 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskDTO findById(Long id) {
+        Optional<Task> task=taskRepository.findById(id);
+        if (task.isPresent()){
+            return taskMapper.convertToDTO(task.get());
+        }
         return null;
     }
 
@@ -45,11 +50,31 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void update(TaskDTO dto) {
+        Optional<Task> task=taskRepository.findById(dto.getId());
+        Task convertedTask=taskMapper.convertToEntity(dto);
+        if (task.isPresent()){
+            //it prevents from duplicate id. we use the present one to set new id.
+            //and we fill missing sections.
+            convertedTask.setId(task.get().getId());
+            convertedTask.setTaskStatus(task.get().getTaskStatus());
+            convertedTask.setAssignedDate(task.get().getAssignedDate());
+            taskRepository.save(convertedTask);
+
+        }
 
     }
 
     @Override
     public void delete(Long id) {
+        //bring it from table and change the flag
+        //Optional is good structure for protecting from null pointer exception
+        Optional<Task> foundTask=taskRepository.findById(id);
+        if (foundTask.isPresent()){
+            foundTask.get().setIsDeleted(true);
+            taskRepository.save(foundTask.get());
+        }
+
+
 
     }
 }
