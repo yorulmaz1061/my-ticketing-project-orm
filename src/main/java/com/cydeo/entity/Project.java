@@ -1,14 +1,11 @@
 package com.cydeo.entity;
 
-import com.cydeo.dto.UserDTO;
 import com.cydeo.enums.Status;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.Where;
-import org.springframework.format.annotation.DateTimeFormat;
 
+
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @NoArgsConstructor

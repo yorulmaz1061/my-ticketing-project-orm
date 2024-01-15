@@ -1,10 +1,10 @@
 package com.cydeo.entity;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -29,7 +29,7 @@ public class BaseEntity {
     //This is for spring to understand this method
     //When I do action on dB initialize this method.
     public void onPrePersist(){
-        //I am initializing on it.persist=save
+        //I am initializing on it.persist means save
         //I need to tell whenever I do action in dB
         //execute this method. So I can keep track on it.
         this.insertDateTime=LocalDateTime.now();
