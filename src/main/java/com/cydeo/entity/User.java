@@ -19,7 +19,11 @@ public class User extends BaseEntity {
 
     private String firstName;
     private String lastName;
+
+    //userName should be unique
+    @Column(unique = true,nullable = false)
     private String userName;
+
     private String passWord;
     private boolean enabled;
     private String phone;
