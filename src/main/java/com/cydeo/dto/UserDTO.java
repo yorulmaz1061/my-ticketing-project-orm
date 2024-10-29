@@ -1,9 +1,9 @@
 package com.cydeo.dto;
 
 import com.cydeo.enums.Gender;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
-import javax.validation.constraints.*;
 
 
 @NoArgsConstructor

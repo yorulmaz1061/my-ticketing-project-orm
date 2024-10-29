@@ -1,11 +1,12 @@
 package com.cydeo.entity;
 
 import com.cydeo.enums.Status;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Where;
 
 
-import javax.persistence.*;
+
 import java.time.LocalDate;
 
 @NoArgsConstructor
